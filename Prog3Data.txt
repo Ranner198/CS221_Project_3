@@ -1,0 +1,361 @@
+# Employee record database contains employee information and their CustomerList stores.
+# Lines starting with a # sign are comments and should be ignored.  Read data from the file
+# using the getNextLine() function provided on the web page.
+# File format is
+#    Number of employees in the file
+#    Employee 1 ID
+#    Employee 1 First Name
+#    Employee 1 Last Name
+#    Employee 1 Department ID
+#    Employee 1 Salary
+#    Number of stores in this Employee 1 customer list
+#      Store 1 ID
+#      Store 1 Name
+#      Store 1 Address
+#      Store 1 City
+#      Store 1 State
+#      Store 1 Zip
+#      etc. for all stores for Employee 1
+#   etc. for all employees
+10
+#------------------- Employee 1 ------------------------------------------------
+5678
+Sue
+Smythe
+123
+46500.00
+# List of stores to be placed in customer list
+4
+7654
+CompanyC Computer Store
+3456 Some Street
+Huntsville
+Alabama
+35801
+9876
+CompanyA Computer Store
+1234 Any Street
+Huntsville
+Alabama
+35801
+#
+6543
+CompanyD Computer Store
+3456 Any Avenue
+Huntsville
+Alabama
+35801
+#
+8765
+CompanyB Computer Store
+2345 Some Avenue
+Huntsville
+Alabama
+35801
+#------------------- Employee 2 ------------------------------------------------
+3456
+John
+Smith
+234
+48500.00
+# List of stores to be placed in customer list
+4
+7654
+CompanyC Computer Store
+3456 Some Street
+Huntsville
+Alabama
+35801
+9876
+CompanyA Computer Store
+1234 Any Street
+Huntsville
+Alabama
+35801
+#
+6543
+CompanyD Computer Store
+3456 Any Avenue
+Huntsville
+Alabama
+35801
+#
+8765
+CompanyB Computer Store
+2345 Some Avenue
+Huntsville
+Alabama
+35801
+#------------------- Employee 3 ------------------------------------------------
+6789
+Tom
+Jones
+456
+65536.00
+# List of stores to be placed in customer list
+4
+7654
+CompanyC Computer Store
+3456 Some Street
+Huntsville
+Alabama
+35801
+9876
+CompanyA Computer Store
+1234 Any Street
+Huntsville
+Alabama
+35801
+#
+6543
+CompanyD Computer Store
+3456 Any Avenue
+Huntsville
+Alabama
+35801
+#
+8765
+CompanyB Computer Store
+2345 Some Avenue
+Huntsville
+Alabama
+35801
+#------------------- Employee 4 ------------------------------------------------
+1234
+John
+Smith
+123
+65536.00
+# List of stores to be placed in customer list
+4
+#
+7654
+CompanyC Computer Store
+3456 Some Street
+Huntsville
+Alabama
+35801
+9876
+CompanyA Computer Store
+1234 Any Street
+Huntsville
+Alabama
+35801
+#
+6543
+CompanyD Computer Store
+3456 Any Avenue
+Huntsville
+Alabama
+35801
+#
+8765
+CompanyB Computer Store
+2345 Some Avenue
+Huntsville
+Alabama
+35801
+#------------------- Employee 5 ------------------------------------------------
+4567
+Bob
+Smyth
+234
+32767.00
+# List of stores to be placed in customer list
+4
+7654
+CompanyC Computer Store
+3456 Some Street
+Huntsville
+Alabama
+35801
+9876
+CompanyA Computer Store
+1234 Any Street
+Huntsville
+Alabama
+35801
+#
+6543
+CompanyD Computer Store
+3456 Any Avenue
+Huntsville
+Alabama
+35801
+#
+8765
+CompanyB Computer Store
+2345 Some Avenue
+Huntsville
+Alabama
+35801
+#------------------- Employee 6 ------------------------------------------------
+7890
+Jane
+Doe
+456
+32767.00
+# List of stores to be placed in customer list
+4
+7654
+CompanyC Computer Store
+3456 Some Street
+Huntsville
+Alabama
+35801
+9876
+CompanyA Computer Store
+1234 Any Street
+Huntsville
+Alabama
+35801
+#
+6543
+CompanyD Computer Store
+3456 Any Avenue
+Huntsville
+Alabama
+35801
+#
+8765
+CompanyB Computer Store
+2345 Some Avenue
+Huntsville
+Alabama
+35801
+#------------------- Employee 7 ------------------------------------------------
+2345
+Mary
+Smithe
+123
+65536.00
+# List of stores to be placed in customer list
+4
+7654
+CompanyC Computer Store
+3456 Some Street
+Huntsville
+Alabama
+35801
+9876
+CompanyA Computer Store
+1234 Any Street
+Huntsville
+Alabama
+35801
+#
+6543
+CompanyD Computer Store
+3456 Any Avenue
+Huntsville
+Alabama
+35801
+#
+8765
+CompanyB Computer Store
+2345 Some Avenue
+Huntsville
+Alabama
+35801
+#------------------- Employee 8 ------------------------------------------------
+7654
+Ron
+Weasley
+613
+76543.00
+# List of stores to be placed in customer list
+4
+7654
+Florish and Blotts
+1234 Diagon Alley
+London
+England
+11111
+9876
+Elops Owl Emporium
+2345 Diagon Alley
+London
+England
+11111
+#
+6543
+Olivander's Wands
+4567 Diagon Alley
+London
+England
+11111
+#
+8765
+Madame Malkins Robes
+5678 Diagon Alley
+London
+England
+11111
+#------------------- Employee 9 ------------------------------------------------
+9876
+Harry
+Potter
+613
+76543.00
+# List of stores to be placed in customer list
+4
+7654
+Florish and Blotts
+1234 Diagon Alley
+London
+England
+11111
+9876
+Elops Owl Emporium
+2345 Diagon Alley
+London
+England
+11111
+#
+6543
+Olivander's Wands
+4567 Diagon Alley
+London
+England
+11111
+#
+8765
+Madame Malkins Robes
+5678 Diagon Alley
+London
+England
+11111
+#------------------- Employee 10 ------------------------------------------------
+8765
+Hermione
+Granger
+613
+76543.00
+# List of stores to be placed in customer list
+4
+7654
+Florish and Blotts
+1234 Diagon Alley
+London
+England
+11111
+9876
+Elops Owl Emporium
+2345 Diagon Alley
+London
+England
+11111
+#
+6543
+Olivander's Wands
+4567 Diagon Alley
+London
+England
+11111
+#
+8765
+Madame Malkins Robes
+5678 Diagon Alley
+London
+England
+11111
