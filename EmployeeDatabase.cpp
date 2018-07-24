@@ -17,16 +17,22 @@ using namespace std;
 
 EmployeeDatabase::EmployeeDatabase() {
 	//Create Database here
+	m_pRoot = NULL;
 };
 
 EmployeeDatabase::~EmployeeDatabase() {
-	//while (tree!=empty())
 	destroyTree(m_pRoot);
+	return;
 };
 
 //Add a employee to the database
 bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
+	
 	EmployeeRecord *temp, *back;
+
+	//Test here
+	e->m_pLeft = NULL;
+	e->m_pRight = NULL;
 
 	temp = m_pRoot;
 	back = NULL;
@@ -35,16 +41,16 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	
 		back = temp;
 	
-		if (e->getID() < temp->getID())
+		if (e->getID() < temp->getID()) {
 			temp = temp->m_pLeft;
-		else
+		} else {
 			temp = temp->m_pRight;
+		}
 	}
 
 	if (back == NULL)
 		m_pRoot = e;
-	else
-    {
+	else {
 		if(e->getID() < back->getID())
             back->m_pLeft = e;
         else
@@ -67,96 +73,102 @@ EmployeeRecord *EmployeeDatabase::getEmployee(int ID) {
 	}
 
 	if (temp == NULL)
-		return temp;
+		return NULL;
 	else 
-		return temp;
+		temp->printRecord();
 };
 
 EmployeeRecord *EmployeeDatabase::removeEmployee(int ID) {
-	
-	/*
+
 	EmployeeRecord *back, *temp, *delParent, *delNode;
 
     temp = m_pRoot;
     back = NULL;
 
-	EmployeeRecord *dupNode;
-
-	dupNode = new EmployeeDatabase();
-	*dupNode = *T;	// Copy the data structure
-	dupNode->left = NULL;	// Set the pointers to NULL
-	dupNode->right = NULL;
-	return dupNode;
-
-
-    // Find the node to delete 
-    while((temp != NULL) && (ID != temp->getID())) {
-
+    while((temp != NULL) && (ID != temp->getID())) {	
         back = temp;
-
         if(ID < temp->getID())
             temp = temp->m_pLeft;
         else
             temp = temp->m_pRight;
     }
 
-	//Ran out of tree
-    if(temp != NULL) {
-
-        delNode = temp;
-        delParent = back;
-	} else {
-		return temp;
-	}
-
-    if(delNode->m_pRight == NULL) {
-
-        if(delParent == NULL) {
-            m_pRoot = delNode->m_pLeft;
-            return delNode;
+    if(temp == NULL) {		
+        return NULL;
+    } else {
+        if(temp == m_pRoot) {
+			// Delete the root 
+            delNode = m_pRoot;
+            delParent = NULL; 
         } else {
+            delNode = temp;
+            delParent = back;
+        }
+    }
+
+    // Case 1: Deleting node with no children or one child 
+    if(delNode->m_pRight == NULL)
+    {
+        if(delParent == NULL)    // If deleting the root    
+        {
+            m_pRoot = delNode->m_pLeft;
+            delete delNode;
+			return temp;
+        }
+        else
+        {
             if(delParent->m_pLeft == delNode)
                 delParent->m_pLeft = delNode->m_pLeft;
             else
                 delParent->m_pRight = delNode->m_pLeft;
-            return delNode;
+                delete delNode;
+            return temp;
         }
     }
-    else if(delNode->m_pLeft == NULL) {
-        if(delParent == NULL) {
-            m_pRoot = delNode->m_pRight;
-            return delNode;
-        } else {
-            if(delParent->m_pLeft == delNode)
-                delParent->m_pLeft = delNode->m_pRight;
+    else // There is at least one child 
+    {
+        if(delNode->m_pLeft == NULL)    // Only 1 child and it is on the right
+        {
+            if(delParent == NULL)    // If deleting the root    
+            {
+                m_pRoot = delNode->m_pRight;
+                delete delNode;
+                return temp;
+            }
             else
-                delParent->m_pRight = delNode->m_pRight;
+            {
+                if(delParent->m_pLeft == delNode)
+                    delParent->m_pLeft = delNode->m_pRight;
+                else
+                    delParent->m_pRight = delNode->m_pRight;
+                delete delNode;
+                return temp;
+            }
+        }
+        else // Case 2: Deleting node with two children 
+        {
+            // Find the replacement value.  Locate the node  
+            // containing the largest value smaller than the 
+            // key of the node being deleted.                
+            temp = delNode->m_pLeft;
+            back = delNode;
+            while(temp->m_pRight != NULL)
+            {
+                back = temp;
+                temp = temp->m_pRight;
+            }
+            // Copy the replacement values into the node to be deleted 
+            //delNode->getID() = temp->getID();
+
+            // Remove the replacement node from the tree 
+            if(back == delNode)
+                back->m_pLeft = temp->m_pLeft;
+            else
+                back->m_pRight = temp->m_pLeft;
+            delete temp;
             return delNode;
         }
-    } else {      
-		//Both have 
-        temp = delNode->m_pLeft;
-        back = delNode;
-        while(temp->m_pRight != NULL) {
-            back = temp;
-            temp = temp->m_pRight;
-        }
-		//Fix this.........
-
-        delNode->getID() = temp->getID();
-
-        //strcpy(delNode->printRecord(), temp->printRecord());
-
-        if(back == delNode)
-            back->m_pLeft = temp->m_pLeft;
-        else
-            back->m_pr = temp->m_pLeft;
-        delete temp;		// Delete this one that is now "moved"
-        return retNode;		// Return the copy
-
     }
-	*/
-	return 0;
 };
 
 bool EmployeeDatabase::buildDatabase(char *dataFile) {
@@ -182,7 +194,7 @@ bool EmployeeDatabase::buildDatabase(char *dataFile) {
     {
         // inFile.is_open() returns false if the file could not be found or
         //    if for some other reason the open failed.
-        cout << "Unable to open file" << dataFile << "\nProgram terminating...\n";
+        cout << "Unable to open file" << "\nProgram terminating...\n";
 		cout << "Press Enter to continue...";
 		getc(stdin);
         return false;
@@ -270,11 +282,20 @@ bool EmployeeDatabase::getNextLine(char *line, int lineLen)
         }
     } // end while
     return false;
-}
+};
 
+void EmployeeDatabase::printEmployeeRecords() {
+	printEmployeeRecords(m_pRoot);
+};
 
 void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt) {
 
+	if(rt != NULL)
+    {
+        printEmployeeRecords(rt->m_pLeft);
+        rt->printRecord();
+        printEmployeeRecords(rt->m_pRight);
+    }
 
 };
 

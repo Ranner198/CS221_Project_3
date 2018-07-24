@@ -10,7 +10,10 @@
 
 //Include Statements
 #include <iostream>
+#include <iomanip>
 #include <fstream>
+#include <math.h>
+#include <string.h>
 
 //Dependices
 #include "EmployeeRecord.h"
@@ -42,7 +45,7 @@ public:
 	EmployeeRecord *removeEmployee(int ID);
 
 	//Traverse and print tree
-	void printEmployeeRecord();
+	void printEmployeeRecords();
 
 	bool buildDatabase(char *dataFile);
 

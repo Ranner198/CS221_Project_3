@@ -39,7 +39,12 @@ EmployeeRecord::EmployeeRecord(int ID, char *fName, char *lName, int dept, doubl
 //Class Destructor
 EmployeeRecord::~EmployeeRecord() {
 	//Delete List Object
-	delete m_pCustomerList;
+	if (m_pCustomerList == NULL)
+		destroyCustomerList();
+	else {
+		removeCustomerList();
+		destroyCustomerList();
+	}
 };
 
 //Set Employee ID
@@ -122,3 +127,11 @@ void EmployeeRecord::printRecord() {
 CustomerList *EmployeeRecord::getCustomerList() {
 	return m_pCustomerList;
 }; 
+
+void EmployeeRecord::removeCustomerList() {
+	m_pCustomerList = NULL;
+};
+
+void EmployeeRecord::destroyCustomerList() {
+	delete m_pCustomerList;
+};
