@@ -23,6 +23,10 @@ EmployeeRecord::EmployeeRecord() {
 
 	//New List Object
 	m_pCustomerList = new CustomerList();
+    
+    //Create Null Pointers
+    m_pLeft = NULL;
+    m_pRight = NULL;
 };
 
 //Paramitized Constructor
@@ -34,6 +38,10 @@ EmployeeRecord::EmployeeRecord(int ID, char *fName, char *lName, int dept, doubl
 
 	//New List Object
 	m_pCustomerList = new CustomerList();
+    
+    //Create Null Pointers
+    m_pLeft = NULL;
+    m_pRight = NULL;
 };
 
 //Class Destructor

@@ -21,18 +21,16 @@ EmployeeDatabase::EmployeeDatabase() {
 };
 
 EmployeeDatabase::~EmployeeDatabase() {
+	
 	destroyTree(m_pRoot);
 	return;
+
 };
 
 //Add a employee to the database
 bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	
 	EmployeeRecord *temp, *back;
-
-	//Test here
-	e->m_pLeft = NULL;
-	e->m_pRight = NULL;
 
 	temp = m_pRoot;
 	back = NULL;
@@ -75,7 +73,7 @@ EmployeeRecord *EmployeeDatabase::getEmployee(int ID) {
 	if (temp == NULL)
 		return NULL;
 	else 
-		temp->printRecord();
+		return temp;
 };
 
 EmployeeRecord *EmployeeDatabase::removeEmployee(int ID) {
@@ -96,78 +94,62 @@ EmployeeRecord *EmployeeDatabase::removeEmployee(int ID) {
     if(temp == NULL) {		
         return NULL;
     } else {
-        if(temp == m_pRoot) {
-			// Delete the root 
-            delNode = m_pRoot;
-            delParent = NULL; 
-        } else {
-            delNode = temp;
-            delParent = back;
-        }
+		delNode = temp;
+		delParent = back;
     }
 
     // Case 1: Deleting node with no children or one child 
-    if(delNode->m_pRight == NULL)
-    {
-        if(delParent == NULL)    // If deleting the root    
-        {
+    if(delNode->m_pRight == NULL) {
+        if(delParent == NULL) {
             m_pRoot = delNode->m_pLeft;
-            delete delNode;
-			return temp;
-        }
-        else
-        {
+            return delNode;
+        } else {
             if(delParent->m_pLeft == delNode)
                 delParent->m_pLeft = delNode->m_pLeft;
             else
                 delParent->m_pRight = delNode->m_pLeft;
-                delete delNode;
-            return temp;
-        }
-    }
-    else // There is at least one child 
-    {
-        if(delNode->m_pLeft == NULL)    // Only 1 child and it is on the right
-        {
-            if(delParent == NULL)    // If deleting the root    
-            {
-                m_pRoot = delNode->m_pRight;
-                delete delNode;
-                return temp;
-            }
-            else
-            {
-                if(delParent->m_pLeft == delNode)
-                    delParent->m_pLeft = delNode->m_pRight;
-                else
-                    delParent->m_pRight = delNode->m_pRight;
-                delete delNode;
-                return temp;
-            }
-        }
-        else // Case 2: Deleting node with two children 
-        {
-            // Find the replacement value.  Locate the node  
-            // containing the largest value smaller than the 
-            // key of the node being deleted.                
-            temp = delNode->m_pLeft;
-            back = delNode;
-            while(temp->m_pRight != NULL)
-            {
-                back = temp;
-                temp = temp->m_pRight;
-            }
-            // Copy the replacement values into the node to be deleted 
-            //delNode->getID() = temp->getID();
-
-            // Remove the replacement node from the tree 
-            if(back == delNode)
-                back->m_pLeft = temp->m_pLeft;
-            else
-                back->m_pRight = temp->m_pLeft;
-            delete temp;
             return delNode;
         }
+    } else if(delNode->m_pLeft == NULL) {
+		// Only 1 child and it is on the right
+        if(delParent == NULL)    // If deleting the root    
+        {
+            m_pRoot = delNode->m_pRight;
+            return delNode;
+        } else {
+            if(delParent->m_pLeft == delNode)
+                delParent->m_pLeft = delNode->m_pRight;
+            else
+                delParent->m_pLeft = delNode->m_pRight;
+            return delNode;
+        }
+    }
+    else // Case 2: Deleting node with two children 
+    {
+              
+        temp = delNode->m_pLeft;
+        back = delNode;
+        while(temp->m_pRight != NULL)
+        {
+            back = temp;
+            temp = temp->m_pRight;
+        }
+        // Copy the replacement values into the node to be deleted 
+        delNode->setID(temp->getID());
+
+		EmployeeRecord *returnNode;
+		returnNode = new EmployeeRecord();
+		*returnNode = *delNode;
+		returnNode->m_pLeft = NULL;
+		returnNode->m_pRight = NULL;
+
+        // Remove the replacement node from the tree 
+        if(back == delNode)
+            back->m_pLeft = temp->m_pLeft;
+        else
+            back->m_pRight = temp->m_pLeft;
+        delete temp;		// Delete this one that is now "moved"
+        return returnNode;		// Return the copy
     }
 };
 
@@ -303,13 +285,10 @@ void EmployeeDatabase::destroyTree(EmployeeRecord *rt) {
 
 	//Recursive Destroy Tree Traversal, edited from CS221 Code Vault: "Nodes removed from the tree are returned."
 
-	if(rt==NULL)
-		return;
-    if(rt->m_pLeft != NULL) destroyTree(rt->m_pLeft);
-    if(rt->m_pRight != NULL) destroyTree(rt->m_pRight);
-
+	if(rt==NULL) return;  // Nothing to clear
+    if(rt->m_pLeft != NULL) destroyTree(rt->m_pLeft); // Clear left sub-tree
+    if(rt->m_pRight != NULL) destroyTree(rt->m_pRight); // Clear right sub-tree
+	//rt=NULL;
     delete rt;	// Destroy this node
-
     return;
-
 };
